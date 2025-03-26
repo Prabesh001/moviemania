@@ -29,12 +29,7 @@ const SearchBar = () => {
         />
       </label>
       <button
-        style={{
-          background: "rgb(239,118,10)",
-          background:
-            "linear-gradient(90deg, rgba(239,118,10,1) 0%, rgba(239,45,8,0.9715099715099715) 77%)",
-        }}
-        className="rounded-r-4xl bg-gray-400 text-md px-3 sm:px-6 py-2 sm:py-3"
+        className="yr-gradient rounded-r-4xl text-md px-3 sm:px-6 py-2 sm:py-3"
         onClick={handleSearchClick}
       >
         Search

@@ -4,17 +4,17 @@ import React from "react";
 const Footer = () => {
   const details = ["Terms-Of-Use", "Privacy-Policy", "About", "Blog", "FAQ"];
   return (
-    <div className="mt-4 flex flex-col justify-center items-center gap-y-2">
+    <div className="mt-4 flexbox flex-col gap-y-2 bg-gray-900 p-4">
       <ul className="flex gap-x-3">
         {details.map((detail, index) => (
-          <li className="text-sm" key={index}>
+          <li className="text-xs sm:text-sm" key={index}>
             {detail}
           </li>
         ))}
       </ul>
 
-      <div className="flex flex-col justify-center items-center">
-        <p className="text-sm">
+      <div className="flexbox flex-col">
+        <p className="text-sm text-center my-3">
           Moviemania is a movie browsing website where you can see the
           collection of old and lates movies collection.
         </p>
