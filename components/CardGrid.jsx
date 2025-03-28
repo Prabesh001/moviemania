@@ -14,8 +14,8 @@ const CardGrid = ({
   sr,
 }) => {
   return (
-    <div className="mt-8 relative">
-      <div className="absolute flex overflow-hidden rounded-xl right-0 -top-6 sm:-top-2 sm:right-4">
+    <div className="mt-10 relative">
+      <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
         <Toggle category={category} setCategory={setCategory} sl={sl} sr={sr} />
       </div>
 

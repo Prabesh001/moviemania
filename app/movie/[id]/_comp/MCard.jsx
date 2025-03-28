@@ -3,6 +3,8 @@
 import Image from "next/image";
 import useFetch from "@/utils/useFetch";
 import { image_url } from "@/public/images";
+import CastCard from "@/components/CastCard";
+import Video from "@/components/Video";
 
 export const Movie = ({ id }) => {
   const { data, loading, error } = useFetch(`/movie/${id}`);
@@ -19,12 +21,12 @@ export const Movie = ({ id }) => {
     error: videoError,
   } = useFetch(`/movie/${id}/videos`);
 
-  console.log(data);
-  console.log(creditData);
-  console.log(videoData);
+  // console.log("Data:", data);
+  // console.log("Credit Data", creditData);
+  console.log("Video Data", videoData);
   return (
     <div className="overflow-hidden">
-      {loading ? (
+      {loading || creditLoading || videoLoading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error Occured: {error}</p>
@@ -39,17 +41,17 @@ export const Movie = ({ id }) => {
                   width={800}
                   height={800}
                   draggable={false}
-                  className="select-none overflow-hidden absolute -z-20 w-screen opacity-5 sm:opacity-30 rounded-sm"
+                  className="select-none overflow-hidden absolute -z-20 w-screen h-screen object-cover opacity-45 rounded-sm"
                 />
               </div>
             </section>
           )}
 
-          <section className="mt-4 sm:mt-0 sm:p-4 bg-[#0003198c] flex items-center justify-center flex-col sm:flex-row gap-x-8 gap-y-4 md:gap-x-12">
+          <section className="pt-4 sm:p-4 bg-[#0003198c] flex items-center justify-center flex-col sm:flex-row gap-x-8 gap-y-4 md:gap-x-12">
             <div>
               <div className="w-[60vw] sm:w-60 md:w-80">
                 <Image
-                  src={`${image_url}${data?.poster_path}`}
+                  src={`${image_url}${data.poster_path}`}
                   alt="Name"
                   width={500}
                   height={500}
@@ -57,7 +59,7 @@ export const Movie = ({ id }) => {
                 />
               </div>
               <h1 className="glorious my-2 sm:my-1 text-center">
-                {data.original_title}
+                {data.title || data.name || data.original_title}
               </h1>
               <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
                 ({data.release_date.split("-")[0]})
@@ -79,20 +81,46 @@ export const Movie = ({ id }) => {
               />
               <ArraySmallCompartment
                 title={"Production Company"}
-                value={creditData?.production_companies || "N/A"}
+                value={data.production_companies || "N/A"}
               />
-              <SmallCompartment title={"Director"} />
-              <SmallCompartment title={"Writer"} />
+              <CreditCompartment
+                title={"Director"}
+                department={"Directing"}
+                value={creditData.crew ? creditData.crew : "N/A"}
+              />
+              <CreditCompartment
+                title={"Writer"}
+                department={"Writing"}
+                value={creditData.crew ? creditData.crew : "N/A"}
+              />
+              <ArraySmallCompartment
+                title={"Genres"}
+                value={data.genres || "N/A"}
+              />
             </div>
           </section>
 
-          <div>{JSON.stringify(data)}</div>
-          <br />
-          <div>{JSON.stringify(creditData)}</div>
-          <br />
-          <div>{JSON.stringify(videoData)}</div>
+          {creditData && (
+            <section className="bg-[#0003198c] px-2 py-4">
+              <h1 className="text-3xl font-bold ">Top Cast</h1>
+              <div className="flex overflow-x-scroll noscroll gap-4">
+                {creditData.cast?.map((c, i) => (
+                  <CastCard
+                    key={i}
+                    name={c.name || c.original_name}
+                    photo={c.profile_path}
+                    char={c.character}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
         </>
       )}
+
+      <Video url={"L6DJwlEWWVw"} />
+
+      <div className="opacity-40">{JSON.stringify(videoData)}</div>
     </div>
   );
 };
@@ -134,9 +162,11 @@ const Compartment = ({ title, value }) => (
 
 const SmallCompartment = ({ title, value }) => (
   <>
-    <div className=" flex flex-wrap">
+    <div className=" flex flex-wrap  items-center gap-3">
       <div className="h2">{title}:</div>
-      <div className="text-center text-sm text-gray-400">{value}</div>
+      <div className="text-center text-sm text-gray-400">
+        {JSON.stringify(value)}
+      </div>
     </div>
     <hr className="opacity-10 -mt-4" />
   </>
@@ -146,13 +176,13 @@ const ArraySmallCompartment = ({ title, value }) => (
   <>
     <div className=" flex flex-wrap items-center gap-3">
       <div className="h2">{title}:</div>
-      <div className="flex gap-1">
+      <div className="flex flex-wrap gap-1 items-center text-center text-sm text-gray-400">
         {value === "N/A"
           ? "N/A"
           : value?.map((v, i) => (
-              <div key={i} className="text-center text-sm text-gray-400">
+              <div key={i}>
                 {v.name}
-                {i !== v.length - 1 ? "," : ""}
+                {i !== value.length - 1 && ","}
               </div>
             ))}
       </div>
@@ -160,3 +190,27 @@ const ArraySmallCompartment = ({ title, value }) => (
     <hr className="opacity-10 -mt-4" />
   </>
 );
+
+const CreditCompartment = ({ title, value, department }) => {
+  const filteredData = value?.filter(
+    (v) => v.known_for_department === department || v.job === title
+  );
+  return (
+    <>
+      <div className=" flex flex-wrap items-center gap-3">
+        <div className="h2">{title}:</div>
+        <div className="flex flex-wrap gap-1 text-center text-sm text-gray-400">
+          {value === "N/A"
+            ? "N/A"
+            : filteredData?.map((v, i) => (
+                <div key={i}>
+                  {v.name}
+                  {i !== filteredData.length - 1 && ","}
+                </div>
+              ))}
+        </div>
+      </div>
+      <hr className="opacity-10 -mt-4" />
+    </>
+  );
+};

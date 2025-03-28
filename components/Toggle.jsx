@@ -2,7 +2,7 @@ import React from "react";
 
 const Toggle = ({ category, setCategory, sl, sr }) => {
   return (
-    <div className="relative bg-[#101828bf] pl-4 pr-2 w-max h-full z-40 flex gap-5 items-center text-md">
+    <div className="relative rounded-xl bg-[#101828bf] pl-4 pr-2 w-max h-full z-40 flex gap-5 items-center text-md">
       <button
         onClick={() => setCategory(sl)}
         className="txt-sd cursor-pointer w-24 text-nowrap"
