@@ -12,7 +12,7 @@ const useFetch = (url, limit) => {
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiY2E5OGMwOWMxOGI1NGI5N2QxMWZhNjc1OTQ3ZTg3NCIsInN1YiI6IjY2M2NkMWVkOTE0ZDU3Mzk3OGEzYTVjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.QolpQb14AqeoTLTi82N57BCMVqe1ElKcMma52lecNqM";
 
   const headers = {
-    Authorization: `bearer ${TMDB_TOKEN}`,
+    Authorization: `Bearer ${TMDB_TOKEN}`,
   };
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const useFetch = (url, limit) => {
           throw new Error(`Error: ${response.status} ${response.statusText}`);
         }
         const result = await response.json();
-        setData(result?.results);
+        setData(result);
       } catch (err) {
         setError(err.message);
       } finally {

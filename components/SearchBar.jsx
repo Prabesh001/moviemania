@@ -1,13 +1,15 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const router = useRouter();
 
   const handleSearchClick = (e) => {
     e.preventDefault();
     if (search.trim() !== "") {
-      console.log(search);
+      router.push(`/search/${search}`);
     }
   };
   return (
@@ -24,7 +26,7 @@ const SearchBar = () => {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="text-gray-700 outline-0 w-full"
+          className="text-gray-600 outline-0 w-full bg-transparent"
           placeholder="Search for a movie, tv shows, etc."
         />
       </label>

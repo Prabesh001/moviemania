@@ -51,11 +51,22 @@ body {
   @apply text-xl font-bold;
 }
 
+.h2 {
+  @apply text-[1rem] font-bold;
+}
+
 .glorious {
   @apply relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl;
 }
 .title {
-  @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text font-bold text-transparent text-xs sm:text-sm lg:text-lg;
+  @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent font-bold text-xs sm:text-sm lg:text-lg;
+}
+.movie-sum {
+  @apply text-xs text-gray-400;
+}
+
+.gray-gr {
+  @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent;
 }
 
 .noscroll::-webkit-scrollbar {
@@ -67,4 +78,18 @@ body {
   width: 1px;
   height: 1px;
   background: transparent;
+}
+
+.txt-sd {
+  text-shadow: 1px 0 5px #51582b;
+}
+
+.glass {
+  background: rgba(13, 13, 13, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(197, 194, 194, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(131, 129, 129, 0.49);
+  z-index: 10;
 }
