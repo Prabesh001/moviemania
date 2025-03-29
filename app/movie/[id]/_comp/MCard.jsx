@@ -41,13 +41,14 @@ export const Movie = ({ id }) => {
                   width={800}
                   height={800}
                   draggable={false}
-                  className="select-none overflow-hidden absolute -z-20 w-screen h-screen object-cover opacity-45 rounded-sm"
+                  className="select-none overflow-hidden fixed inset-0 -z-20 w-screen h-screen object-cover opacity-45 rounded-sm"
                 />
+                <div className="fixed inset-0 bg-[#0003198c] -z-20"></div>
               </div>
             </section>
           )}
 
-          <section className="pt-4 sm:p-4 bg-[#0003198c] flex items-center justify-center flex-col sm:flex-row gap-x-8 gap-y-4 md:gap-x-12">
+          <section className="pt-4 sm:p-4 flex items-center justify-center flex-col sm:flex-row gap-x-8 gap-y-4 md:gap-x-12">
             <div>
               <div className="w-[60vw] sm:w-60 md:w-80">
                 <Image
@@ -101,7 +102,7 @@ export const Movie = ({ id }) => {
           </section>
 
           {creditData && (
-            <section className="bg-[#0003198c] px-2 py-4">
+            <section className="px-2 py-4">
               <h1 className="text-3xl font-bold ">Top Cast</h1>
               <div className="flex overflow-x-scroll noscroll gap-4">
                 {creditData.cast?.map((c, i) => (

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-center bg-gray-900 p-4 px-6">
+    <nav id="#top" className="flex justify-between items-center bg-gray-900 p-4 px-6">
       <Link href={"/"}>
         <div className="glorious cursor-pointer select-none">MovieMania</div>
       </Link>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, fromSearch }) => {
   const formatDate = (date) => {
     const format = date?.split("-");
     return `${format[0]}`;
@@ -16,14 +16,18 @@ const MovieCard = ({ movie }) => {
         title={movie.title || movie.name || movie.original_name}
         className="cursor-pointer"
       >
-        <div className="relative w-25 sm:w-50 rounded-md overflow-hidden">
+        <div
+          className={`relative ${
+            fromSearch ? "w-full" : "w-25 sm:w-50"
+          } rounded-md overflow-hidden`}
+        >
           <div className="w-full">
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title || movie.name || movie.original_name}
               width={500}
               height={500}
-              className="h-full w-full"
+              className="h-full rounded-sm w-full aspect-[2/3]"
               draggable={false}
               loading="lazy"
             />
