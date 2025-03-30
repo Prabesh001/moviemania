@@ -3,14 +3,20 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const MovieCard = ({ movie, fromSearch }) => {
+const MovieCard = ({ movie, fromSearch, endpoint }) => {
   const formatDate = (date) => {
     const format = date?.split("-");
     return `${format[0]}`;
   };
 
   return (
-    <Link href={`/movie/${movie.id}`}>
+    <Link
+      href={
+        endpoint
+          ? `/${endpoint}/${movie.id}`
+          : `/${movie.media_type==="movie" ? "movie" : "tv"}/${movie.id}`
+      }
+    >
       <div
         title={movie.title || movie.name || movie.original_name}
         className="cursor-pointer"
@@ -23,8 +29,9 @@ const MovieCard = ({ movie, fromSearch }) => {
           <div className="w-full">
             <Image
               src={
-                `https://image.tmdb.org/t/p/w500${movie.poster_path}` ||
-                images.noPoster
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : images.noPoster
               }
               alt={movie.title || movie.name || movie.original_name}
               width={500}

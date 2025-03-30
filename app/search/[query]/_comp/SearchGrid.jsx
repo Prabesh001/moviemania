@@ -1,13 +1,15 @@
 "use client";
 import MovieCard from "@/components/MovieCard";
+import Pagination from "@/components/Pagination";
 import useFetch from "@/utils/useFetch";
 import Link from "next/link";
 import React, { useState } from "react";
+import ReactPaginate from "react-paginate";
 
 const SearchGrid = ({ query }) => {
   const [page, setPage] = useState(1);
   const { data, loading, error } = useFetch(
-    `/search/movie?query=${query}&page=${page}`
+    `/search/multi?query=${query}&page=${page}`
   );
 
   return (
@@ -17,9 +19,19 @@ const SearchGrid = ({ query }) => {
       ) : (
         <div className="flex flex-col">
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-            {data?.results?.map((movie) => (
-              <MovieCard fromSearch={true} key={movie.id} movie={movie} />
-            ))}
+            {data?.results?.length > 0 ? (
+              data.results.map((movie) => (
+                <MovieCard fromSearch={true} key={movie.id} movie={movie} />
+              ))
+            ) : (
+              <>
+                {!loading && (
+                  <div className="w-screen flex h-[50vh] justify-center items-center">
+                    <p className="fount-bold text-4xl">No Result Found!</p>
+                  </div>
+                )}
+              </>
+            )}
           </div>
           <Link href="#top">
             <div className="flex md:justify-center">

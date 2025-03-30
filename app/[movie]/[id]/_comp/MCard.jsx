@@ -2,36 +2,37 @@
 
 import Image from "next/image";
 import useFetch from "@/utils/useFetch";
-import { image_url } from "@/public/images";
+import { image_url, images } from "@/public/images";
 import CastCard from "@/components/CastCard";
 import Video from "@/components/Video";
 import CardGrid from "@/components/CardGrid";
 
-export const Movie = ({ id }) => {
-  const { data, loading, error } = useFetch(`/movie/${id}`);
+export const Movie = ({ movie, id }) => {
+  const { data, loading, error } = useFetch(`/${movie}/${id}`);
 
   const {
     data: creditData,
     loading: creditLoading,
     error: creditError,
-  } = useFetch(`/movie/${id}/credits`);
+  } = useFetch(`/${movie}/${id}/credits`);
 
   const {
     data: videoData,
     loading: videoLoading,
     error: videoError,
-  } = useFetch(`/movie/${id}/videos`);
+  } = useFetch(`/${movie}/${id}/videos`);
 
   const {
     data: similarData,
     loading: similarLoading,
     error: similarError,
-  } = useFetch(`/movie/${id}/similar`);
+  } = useFetch(`/${movie}/${id}/similar`);
+
   const {
     data: recommendationsData,
     loading: recommendationsLoading,
     error: recommendationsError,
-  } = useFetch(`/movie/${id}/recommendations`);
+  } = useFetch(`/${movie}/${id}/recommendations`);
 
   return (
     <div className="overflow-hidden">
@@ -61,7 +62,11 @@ export const Movie = ({ id }) => {
             <div>
               <div className="w-[60vw] sm:w-60 md:w-80">
                 <Image
-                  src={`${image_url}${data.poster_path}`}
+                  src={
+                    data.poster_path
+                      ? `${image_url}${data.poster_path}`
+                      : images.noPoster
+                  }
                   alt="Name"
                   width={500}
                   height={500}
@@ -98,12 +103,12 @@ export const Movie = ({ id }) => {
               <CreditCompartment
                 title={"Director"}
                 department={"Directing"}
-                value={creditData.crew ? creditData.crew : "N/A"}
+                value={creditData?.crew ? creditData?.crew : "N/A"}
               />
               <CreditCompartment
                 title={"Writer"}
                 department={"Writing"}
-                value={creditData.crew ? creditData.crew : "N/A"}
+                value={creditData?.crew ? creditData?.crew : "N/A"}
               />
               <ArraySmallCompartment
                 title={"Genres"}
@@ -112,7 +117,7 @@ export const Movie = ({ id }) => {
             </div>
           </section>
 
-          {creditData && (
+          {creditData && creditData.cast.length > 0 && (
             <section className="px-2 py-4">
               <h1 className="text-3xl font-bold ">Top Cast</h1>
               <div className="flex overflow-x-scroll noscroll gap-4">
@@ -133,7 +138,7 @@ export const Movie = ({ id }) => {
       {videoData?.results?.length > 0 && (
         <>
           <h1 className="h1">Promotional Video</h1>
-          <div className="flex gap-8 flex-wrap">
+          <div className="flex overflow-x-scroll noscroll gap-3">
             {videoData.results.map((v, i) => (
               <Video key={i} url={v.key} name={v.name} />
             ))}
@@ -149,6 +154,7 @@ export const Movie = ({ id }) => {
             data={similarData}
             loading={similarLoading}
             error={similarError}
+            endpoint={movie}
           />
         </>
       )}
@@ -171,7 +177,7 @@ const GlassBox = ({ title, data }) => {
   return (
     <div className="flex flex-col glass p-4 md:max-w-[50vw]">
       <h1 className="gray-gr font-bold text-xl sm:text-2xl">{title}</h1>
-      <p className="text-sm sm:text-md mx-1">{data}</p>
+      <p className="text-sm sm:text-md mx-1 sm:line-clamp-[10]">{data}</p>
     </div>
   );
 };
@@ -214,29 +220,32 @@ const SmallCompartment = ({ title, value }) => (
   </>
 );
 
-const ArraySmallCompartment = ({ title, value }) => (
-  <>
-    <div className=" flex flex-wrap items-center gap-3">
-      <div className="h2">{title}:</div>
-      <div className="flex flex-wrap gap-1 items-center text-center text-sm text-gray-400">
-        {value === "N/A"
-          ? "N/A"
-          : value?.map((v, i) => (
-              <div key={i}>
-                {v.name}
-                {i !== value.length - 1 && ","}
-              </div>
-            ))}
+const ArraySmallCompartment = ({ title, value }) => {
+  const val = Array.isArray(value) ? value : [value];
+  return (
+    <>
+      <div className=" flex flex-wrap items-center gap-3">
+        <div className="h2">{title}:</div>
+        <div className="flex flex-wrap gap-1 items-center text-center text-sm text-gray-400">
+          {val?.map((v, i) => (
+            <div key={i}>
+              {v.name}
+              {i !== value.length - 1 && ","}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    <hr className="opacity-10 -mt-4" />
-  </>
-);
+      <hr className="opacity-10 -mt-4" />
+    </>
+  );
+};
 
 const CreditCompartment = ({ title, value, department }) => {
-  const filteredData = value?.filter(
-    (v) => v.known_for_department === department || v.job === title
-  );
+  const filteredData =
+    value !== "N/A" &&
+    value.filter(
+      (v) => v.known_for_department === department || v.job === title
+    );
   return (
     <>
       <div className=" flex flex-wrap items-center gap-3">

@@ -2,8 +2,8 @@ import React from "react";
 import { Movie } from "./_comp/MCard";
 
 const MovieById = async ({ params }) => {
-  const { id } = await params;
-  return <Movie id={id} />;
+  const { movie,id } = await params;
+  return <Movie movie={movie} id={id} />;
 };
 
 export default MovieById;

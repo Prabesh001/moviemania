@@ -12,7 +12,8 @@ const CardGrid = ({
   setCategory,
   sl,
   sr,
-  recommendation
+  recommendation,
+  endpoint
 }) => {
   return (
     <div className="mt-10 relative">
@@ -28,7 +29,7 @@ const CardGrid = ({
         {data?.results && (
           <div className="flex gap-2 sm:gap-4 px-1 py-2 overflow-x-scroll noscroll">
             {data?.results.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie.id} movie={movie} endpoint={endpoint}/>
             ))}
           </div>
         )}

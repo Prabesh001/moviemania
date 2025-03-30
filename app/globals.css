@@ -19,6 +19,10 @@
   }
 }
 
+html{
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -34,7 +38,6 @@ body {
   );
 }
 .gray-gradient {
-  background: rgb(28, 28, 27);
   background: linear-gradient(
     0deg,
     #01083de7 16%,
@@ -97,4 +100,16 @@ body {
   background-color: transparent !important;
   box-shadow: 0 0 0px 1000px white inset !important;
   color: #000 !important;
+}
+
+.spinner {
+  animation: spin 700ms infinite linear;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
