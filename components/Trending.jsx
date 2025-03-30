@@ -11,7 +11,7 @@ const Trending = () => {
     data: trendingData,
     loading: trendingLoading,
     error: trendingError,
-  } = useFetch(`/trending/all/${time}`);
+  } = useFetch(`/trending/movie/${time}?language=en-US`);
 
   const { data, loading, error } = useFetch(`/${type}/top_rated`);
 

@@ -12,12 +12,13 @@ const CardGrid = ({
   setCategory,
   sl,
   sr,
+  recommendation
 }) => {
   return (
     <div className="mt-10 relative">
-      <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
+      {!recommendation && <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
         <Toggle category={category} setCategory={setCategory} sl={sl} sr={sr} />
-      </div>
+      </div>}
 
       <h1 className="font-bold text-2xl">{title}</h1>
 

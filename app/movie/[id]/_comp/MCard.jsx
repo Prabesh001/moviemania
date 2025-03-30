@@ -5,6 +5,7 @@ import useFetch from "@/utils/useFetch";
 import { image_url } from "@/public/images";
 import CastCard from "@/components/CastCard";
 import Video from "@/components/Video";
+import CardGrid from "@/components/CardGrid";
 
 export const Movie = ({ id }) => {
   const { data, loading, error } = useFetch(`/movie/${id}`);
@@ -20,9 +21,17 @@ export const Movie = ({ id }) => {
     loading: videoLoading,
     error: videoError,
   } = useFetch(`/movie/${id}/videos`);
+  const {
+    data: similarData,
+    loading: similarLoading,
+    error: similarError,
+  } = useFetch(`/movie/${id}/similar`);
+  const {
+    data: recommendationsData,
+    loading: recommendationsLoading,
+    error: recommendationsError,
+  } = useFetch(`/movie/${id}/recommendations`);
 
-  // console.log("Data:", data);
-  // console.log("Credit Data", creditData);
   console.log("Video Data", videoData);
   return (
     <div className="overflow-hidden">
@@ -58,13 +67,13 @@ export const Movie = ({ id }) => {
                   height={500}
                   className="w-full object-contain rounded-md"
                 />
+                <h1 className="glorious text-wrap my-2 sm:my-1 text-center">
+                  {data.title || data.name || data.original_title}
+                </h1>
+                <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
+                  ({data.release_date.split("-")[0]})
+                </h1>
               </div>
-              <h1 className="glorious my-2 sm:my-1 text-center">
-                {data.title || data.name || data.original_title}
-              </h1>
-              <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
-                ({data.release_date.split("-")[0]})
-              </h1>
             </div>
 
             <div className="flex flex-col gap-5">
@@ -119,9 +128,39 @@ export const Movie = ({ id }) => {
         </>
       )}
 
-      <Video url={"L6DJwlEWWVw"} />
+      {videoData?.results?.length > 0 && (
+        <>
+          <h1 className="h1">Promotional Video</h1>
+          <div className="flex gap-8 flex-wrap">
+            {videoData.results.map((v, i) => (
+              <Video key={i} url={v.key} name={v.name} />
+            ))}
+          </div>
+        </>
+      )}
 
-      <div className="opacity-40">{JSON.stringify(videoData)}</div>
+      {similarData?.results.length > 0 && (
+        <>
+          <CardGrid
+            recommendation={true}
+            title={"Similar Movies"}
+            data={similarData}
+            loading={similarLoading}
+            error={similarError}
+          />
+        </>
+      )}
+      {recommendationsData?.results.length > 0 && (
+        <>
+          <CardGrid
+            recommendation={true}
+            title={"Recommendations"}
+            data={recommendationsData}
+            loading={recommendationsLoading}
+            error={recommendationsError}
+          />
+        </>
+      )}
     </div>
   );
 };

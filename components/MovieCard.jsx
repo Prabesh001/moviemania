@@ -35,11 +35,11 @@ const MovieCard = ({ movie, fromSearch }) => {
           <div className="absolute top-0 right-0 text-[10px] bg-[#0000008c] w-max px-[3px] py-0">
             {movie.original_language.toUpperCase()}
           </div>
-          <h1 className="title w-full overflow-hidden line-clamp-1">
+          <h1 className="title w-full overflow-hidden line-clamp-1 mb-1">
             {movie.title || movie.name || movie.original_name}
           </h1>
 
-          <div className="flex justify-between movie-sum pr-2">
+          <div className="flex justify-between movie-sum p-2">
             {(movie.release_date || movie.first_air_date) && (
               <p>{formatDate(movie.release_date || movie.first_air_date)}</p>
             )}
