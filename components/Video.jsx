@@ -2,7 +2,7 @@ import React from "react";
 
 const Video = ({ url, name }) => {
   return (
-    <div className="w-80 h-full aspect-video">
+    <div className="w-80 h-full aspect-video mb-4">
       <iframe
         width="560"
         height="315"
@@ -14,7 +14,7 @@ const Video = ({ url, name }) => {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
-      <p>{name}</p>
+      <p className="line-clamp-2">{name}</p>
     </div>
   );
 };

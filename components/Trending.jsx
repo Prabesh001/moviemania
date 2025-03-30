@@ -11,7 +11,7 @@ const Trending = () => {
     data: trendingData,
     loading: trendingLoading,
     error: trendingError,
-  } = useFetch(`/trending/movie/${time}?language=en-US`);
+  } = useFetch(`/trending/movie/${time}`);
 
   const { data, loading, error } = useFetch(`/${type}/top_rated`);
 
@@ -24,7 +24,7 @@ const Trending = () => {
   return (
     <>
       <CardGrid
-        title={"Trending"}
+        title={"Trending Movies"}
         data={trendingData}
         loading={trendingLoading}
         error={trendingError}

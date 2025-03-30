@@ -21,6 +21,7 @@ export const Movie = ({ id }) => {
     loading: videoLoading,
     error: videoError,
   } = useFetch(`/movie/${id}/videos`);
+
   const {
     data: similarData,
     loading: similarLoading,
@@ -32,7 +33,6 @@ export const Movie = ({ id }) => {
     error: recommendationsError,
   } = useFetch(`/movie/${id}/recommendations`);
 
-  console.log("Video Data", videoData);
   return (
     <div className="overflow-hidden">
       {loading || creditLoading || videoLoading ? (
@@ -70,9 +70,11 @@ export const Movie = ({ id }) => {
                 <h1 className="glorious text-wrap my-2 sm:my-1 text-center">
                   {data.title || data.name || data.original_title}
                 </h1>
-                <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
-                  ({data.release_date.split("-")[0]})
-                </h1>
+                {data.release_date && (
+                  <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
+                    ({data.release_date?.split("-")[0]})
+                  </h1>
+                )}
               </div>
             </div>
 

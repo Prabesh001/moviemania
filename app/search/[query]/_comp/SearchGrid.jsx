@@ -10,7 +10,6 @@ const SearchGrid = ({ query }) => {
     `/search/movie?query=${query}&page=${page}`
   );
 
-  console.log(page, data);
   return (
     <>
       {error ? (
@@ -23,16 +22,18 @@ const SearchGrid = ({ query }) => {
             ))}
           </div>
           <Link href="#top">
-            {page !== data?.total_pages && (
-              <button
-                onClick={() => {
-                  setPage((prev) => prev + 1);
-                }}
-                className="cursor-pointer bg-slate-900 hover:bg-slate-800 px-3 py-2 rounded-md"
-              >
-                {loading ? "Loading..." : "Load More"}
-              </button>
-            )}
+            <div className="flex md:justify-center">
+              {page !== data?.total_pages && (
+                <button
+                  onClick={() => {
+                    setPage((prev) => prev + 1);
+                  }}
+                  className="cursor-pointer w-full md:w-max bg-slate-900 hover:bg-slate-800 px-3 py-2 rounded-md"
+                >
+                  {loading ? "Loading..." : "Load More"}
+                </button>
+              )}
+            </div>
           </Link>
         </div>
       )}

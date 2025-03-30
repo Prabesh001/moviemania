@@ -1,3 +1,4 @@
+import { images } from "@/public/images";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,8 +8,6 @@ const MovieCard = ({ movie, fromSearch }) => {
     const format = date?.split("-");
     return `${format[0]}`;
   };
-
-  console.log(movie);
 
   return (
     <Link href={`/movie/${movie.id}`}>
@@ -23,7 +22,10 @@ const MovieCard = ({ movie, fromSearch }) => {
         >
           <div className="w-full">
             <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={
+                `https://image.tmdb.org/t/p/w500${movie.poster_path}` ||
+                images.noPoster
+              }
               alt={movie.title || movie.name || movie.original_name}
               width={500}
               height={500}
@@ -35,7 +37,7 @@ const MovieCard = ({ movie, fromSearch }) => {
           <div className="absolute top-0 right-0 text-[10px] bg-[#0000008c] w-max px-[3px] py-0">
             {movie.original_language.toUpperCase()}
           </div>
-          <h1 className="title w-full overflow-hidden line-clamp-1 mb-1">
+          <h1 className="title w-full overflow-hidden line-clamp-1">
             {movie.title || movie.name || movie.original_name}
           </h1>
 
