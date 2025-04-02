@@ -1,7 +1,7 @@
-const Skeleton = ({ width = "w-60", height = "h-40" }) => {
+const Skeleton = ({ className="w-60 h-60" }) => {
   return (
     <div
-      className={`bg-gray-300 animate-pulse rounded-md ${width} ${height}`}
+      className={`bg-gray-600 animate-pulse rounded-md ${className}`}
     />
   );
 };

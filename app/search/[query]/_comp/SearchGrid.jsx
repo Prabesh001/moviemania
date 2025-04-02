@@ -20,8 +20,8 @@ const SearchGrid = ({ query }) => {
         <div className="flex flex-col">
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {data?.results?.length > 0 ? (
-              data.results.map((movie) => (
-                <MovieCard fromSearch={true} key={movie.id} movie={movie} />
+              data.results.map((movie,i) => (
+                <MovieCard fromSearch={true} index={i} key={movie.id} movie={movie} />
               ))
             ) : (
               <>

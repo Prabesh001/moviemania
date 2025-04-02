@@ -24,7 +24,7 @@ const InfiniteMovies = ({ query }) => {
         return uniqueMovies;
       });
     }
-  }, [data]);
+  }, [page]);
 
   useEffect(() => {
     if (inView && !loading) {
@@ -38,15 +38,21 @@ const InfiniteMovies = ({ query }) => {
         <p>Error</p>
       ) : (
         <div className="flex flex-col">
-          <Link href={"#top"} className="fixed right-10 bottom-10 z-30 bg-blue-400 p-4 py-3 text-xl font-bold text-white rounded-full rotate-270">→</Link>
+          <Link
+            href={"#top"}
+            className="fixed right-10 bottom-10 z-30 bg-blue-400 p-4 py-3 text-xl font-bold text-white rounded-full rotate-270"
+          >
+            →
+          </Link>
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {allData.length > 0 &&
-              allData.map((movie) => (
+              allData.map((movie, i) => (
                 <MovieCard
                   fromSearch={true}
                   key={movie.id}
                   movie={movie}
                   endpoint={query}
+                  index={i}
                 />
               ))}
           </div>
