@@ -19,9 +19,9 @@ const Video = ({ url, name }) => {
   };
 
   return (
-    <div className="w-80 h-full group">
+    <div className="w-60 sm:w-80 h-full group">
       <div
-        className="w-80 h-full aspect-video relative cursor-pointer rounded-lg overflow-hidden"
+        className="w-60 sm:w-80 h-full aspect-video relative cursor-pointer rounded-lg overflow-hidden"
         onClick={handlePlayClick}
       >
         <Image

@@ -1,4 +1,4 @@
-import { images } from "@/public/images";
+import { image_url, images } from "@/public/images";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,7 +14,7 @@ const MovieCard = ({ movie, fromSearch, endpoint }) => {
       href={
         endpoint
           ? `/${endpoint}/${movie.id}`
-          : `/${movie.media_type==="movie" ? "movie" : "tv"}/${movie.id}`
+          : `/${movie.media_type === "movie" ? "movie" : "tv"}/${movie.id}`
       }
     >
       <div
@@ -30,7 +30,7 @@ const MovieCard = ({ movie, fromSearch, endpoint }) => {
             <Image
               src={
                 movie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  ? `${image_url}${movie.poster_path}`
                   : images.noPoster
               }
               alt={movie.title || movie.name || movie.original_name}

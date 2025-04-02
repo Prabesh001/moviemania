@@ -10,6 +10,7 @@ import CardGrid from "@/components/CardGrid";
 export const Movie = ({ movie, id }) => {
   const { data, loading, error } = useFetch(`/${movie}/${id}`);
 
+  console.log(data?.first_air_date);
   const {
     data: creditData,
     loading: creditLoading,
@@ -33,6 +34,8 @@ export const Movie = ({ movie, id }) => {
     loading: recommendationsLoading,
     error: recommendationsError,
   } = useFetch(`/${movie}/${id}/recommendations`);
+
+  console.log(data);
 
   return (
     <div className="overflow-hidden">
@@ -70,14 +73,18 @@ export const Movie = ({ movie, id }) => {
                   alt="Name"
                   width={500}
                   height={500}
-                  className="w-full object-contain rounded-md"
+                  className="w-full object-cover rounded-md"
                 />
                 <h1 className="glorious text-wrap my-2 sm:my-1 text-center">
                   {data.title || data.name || data.original_title}
                 </h1>
-                {data.release_date && (
+                {(data.release_date || data.first_air_date) && (
                   <h1 className="mb-2 text-sm mx-auto text-center gray-gr">
-                    ({data.release_date?.split("-")[0]})
+                    {movie === "movie"
+                      ? `(${data.release_date?.split("-")[0]})`
+                      : movie === "tv"
+                      ? `(${data?.first_air_date.split("-")[0]})`
+                      : ""}
                   </h1>
                 )}
               </div>
@@ -91,11 +98,19 @@ export const Movie = ({ movie, id }) => {
               </div>
 
               <GlassBox title={"Overview"} data={data.overview || "N/A"} />
-              <StatusBar
-                status={data.status || "N/A"}
-                released={data.release_date || "N/A"}
-                runtime={data.runtime || "N/A"}
-              />
+              {movie === "movie" ? (
+                <StatusBar
+                  status={data.status || "N/A"}
+                  released={data.release_date || "N/A"}
+                  runtime={data.runtime || "N/A"}
+                />
+              ) : (
+                <SeriesStatusBar
+                  noOfEp={data?.number_of_episodes}
+                  noOfSeason={data?.number_of_seasons}
+                  epRuntime={data?.episode_run_time}
+                />
+              )}
               <ArraySmallCompartment
                 title={"Production Company"}
                 value={data.production_companies || "N/A"}
@@ -253,15 +268,41 @@ const CreditCompartment = ({ title, value, department }) => {
         <div className="flex flex-wrap gap-1 text-center text-sm text-gray-400">
           {value === "N/A"
             ? "N/A"
-            : filteredData?.map((v, i) => (
+            : filteredData.length > 0
+            ? filteredData?.map((v, i) => (
                 <div key={i}>
                   {v.name}
                   {i !== filteredData.length - 1 && ","}
                 </div>
-              ))}
+              ))
+            : "N/A"}
         </div>
       </div>
       <hr className="opacity-10 -mt-4" />
     </>
+  );
+};
+
+const SeriesStatusBar = ({ noOfEp, noOfSeason, epRuntime }) => {
+  return (
+    <>
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-14">
+        <SeriesCompartment title={"No. Of Episodes"} value={noOfEp} />
+        <SeriesCompartment title={"No. Of Seasons"} value={noOfSeason} />
+        <SeriesCompartment title={"Runtime"} value={epRuntime} />
+      </div>
+      <hr className="opacity-10 -mt-4" />
+    </>
+  );
+};
+
+const SeriesCompartment = ({ title, value }) => {
+  return (
+    <div className="flexbox gap-x-4 flex-wrap">
+      <div className="h2 text-nowrap">{title}:</div>
+      <div className="text-center text-nowrap text-sm text-gray-400">
+        {value} {title === "Runtime" && "min"}
+      </div>
+    </div>
   );
 };

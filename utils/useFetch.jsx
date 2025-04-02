@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const useFetch = (url, limit) => {
+const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -36,7 +36,7 @@ const useFetch = (url, limit) => {
     };
 
     fetchData();
-  }, [url, limit]);
+  }, [url]);
 
   return { data, loading, error };
 };
