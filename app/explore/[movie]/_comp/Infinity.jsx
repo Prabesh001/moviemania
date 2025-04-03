@@ -1,5 +1,6 @@
 "use client";
 import MovieCard from "@/components/MovieCard";
+import Spinner from "@/utils/Spinner";
 import useFetch from "@/utils/useFetch";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const InfiniteMovies = ({ query }) => {
       });
     }
   }, [page]);
-
+  
   useEffect(() => {
     if (inView && !loading) {
       setPage((prevPage) => prevPage + 1);
@@ -40,9 +41,9 @@ const InfiniteMovies = ({ query }) => {
         <div className="flex flex-col">
           <Link
             href={"#top"}
-            className="fixed right-10 bottom-10 z-30 bg-blue-400 p-4 py-3 text-xl font-bold text-white rounded-full rotate-270"
+            className="fixed flex items-center justify-center pr-0 pb-2 rotate-270 right-10 bottom-10 z-30 bg-blue-400 h-12 w-12 text-5xl font-bold text-white rounded-full"
           >
-            →
+            »
           </Link>
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {allData.length > 0 &&
@@ -60,7 +61,7 @@ const InfiniteMovies = ({ query }) => {
             ref={ref}
             className="overflow-hidden flex justify-center items-center"
           >
-            <div className="spinner h-8 w-8 border-[#0000008c] border-r-blue-500 border-t-blue-500 rounded-full border-4"></div>
+            <Spinner />
           </section>
         </div>
       )}

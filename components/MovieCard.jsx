@@ -56,7 +56,7 @@ const MovieCard = ({ movie, fromSearch, endpoint, index }) => {
               />
             </div>
             <div className="absolute top-0 right-0 text-[10px] bg-[#0000008c] w-max px-[3px] py-0">
-              {movie.original_language.toUpperCase()}
+              {movie.original_language?.toUpperCase()}
             </div>
             <h1 className="title w-full overflow-hidden line-clamp-1">
               {movie.title || movie.name || movie.original_name}
@@ -69,7 +69,7 @@ const MovieCard = ({ movie, fromSearch, endpoint, index }) => {
 
               <div className="flexbox font-bold bg-[#4136368c] p-[1px] px-[3px] rounded-xs text-gray-300">
                 <span>⭐</span>
-                <span>{movie.vote_average.toFixed(1)}</span>
+                <span>{movie.vote_average?.toFixed(1)}</span>
               </div>
             </div>
           </div>

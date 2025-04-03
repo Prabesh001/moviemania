@@ -3,19 +3,19 @@ import React from "react";
 import MovieCard from "./MovieCard";
 import Toggle from "./Toggle";
 import SkeletonCard from "@/utils/SkeletonCard";
+import useFetch from "@/utils/useFetch";
 
 const CardGrid = ({
   title,
-  data,
-  loading,
-  error,
   category,
   setCategory,
   sl,
   sr,
   recommendation,
   endpoint,
+  path,
 }) => {
+  const { data, loading, error } = useFetch(path);
   return (
     <div className="mt-10 relative">
       {!recommendation && (
@@ -38,8 +38,8 @@ const CardGrid = ({
             Array(8)
               .fill()
               .map((n, i) => <SkeletonCard key={i} />)
-          ) : data.results.length > 0 ? (
-            data.results.map((movie, i) => (
+          ) : data?.results.length > 0 ? (
+            data?.results.map((movie, i) => (
               <MovieCard
                 key={movie.id}
                 index={i}

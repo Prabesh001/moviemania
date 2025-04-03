@@ -23,18 +23,6 @@ export const Movie = ({ movie, id }) => {
     error: videoError,
   } = useFetch(`/${movie}/${id}/videos`);
 
-  const {
-    data: similarData,
-    loading: similarLoading,
-    error: similarError,
-  } = useFetch(`/${movie}/${id}/similar`);
-
-  const {
-    data: recommendationsData,
-    loading: recommendationsLoading,
-    error: recommendationsError,
-  } = useFetch(`/${movie}/${id}/recommendations`);
-
   return (
     <div className="overflow-hidden">
       {error ? (
@@ -155,7 +143,7 @@ export const Movie = ({ movie, id }) => {
             <section className="px-2 py-4 overflow-x-scroll noscroll">
               <h1 className="text-3xl font-bold mb-2">Top Cast</h1>
               <div className="flex overflow-x-scroll noscroll gap-4">
-                {Array(3)
+                {Array(8)
                   .fill()
                   .map((num, i) => (
                     <div
@@ -163,7 +151,7 @@ export const Movie = ({ movie, id }) => {
                       className="flex flex-col justify-center items-center w-40 gap-2"
                     >
                       <div className="w-full aspect-square overflow-hidden border-2 border-white rounded-full">
-                        <Skeleton className="w-full h-full" />
+                        <Skeleton className="w-40 h-40" />
                       </div>
                       <Skeleton className="w-[90%] h-4" />
                       <Skeleton className="w-[70%] h-4" />
@@ -172,8 +160,9 @@ export const Movie = ({ movie, id }) => {
               </div>
             </section>
           ) : (
+            (!creditError &&
             creditData &&
-            creditData.cast.length > 0 && (
+            creditData.cast.length > 0) && (
               <section className="px-2 py-4">
                 <h1 className="text-3xl font-bold ">Top Cast</h1>
                 <div className="flex overflow-x-scroll noscroll gap-4">
@@ -196,14 +185,18 @@ export const Movie = ({ movie, id }) => {
         <>
           <h1 className="h1">Promotional Videos</h1>
           <div className="flex overflow-x-scroll noscroll gap-3">
-            {Array(2)
+            {Array(5)
               .fill()
               .map((num, i) => (
-                <Skeleton className="w-50 sm:w-80 aspect-video" key={i} />
+                <Skeleton
+                  className="w-50 sm:w-80 h-30 sm:h-50 aspect-video"
+                  key={i}
+                />
               ))}
           </div>
         </>
       ) : (
+        !videoError &&
         videoData?.results?.length > 0 && (
           <>
             <h1 className="h1">Promotional Videos</h1>
@@ -220,19 +213,15 @@ export const Movie = ({ movie, id }) => {
         <CardGrid
           recommendation={true}
           title={"Similar Movies"}
-          data={similarData}
-          loading={similarLoading}
-          error={similarError}
           endpoint={movie}
+          path={`/${movie}/${id}/similar`}
         />
       </>
       <>
         <CardGrid
           recommendation={true}
           title={"Recommendations"}
-          data={recommendationsData}
-          loading={recommendationsLoading}
-          error={recommendationsError}
+          path={`/${movie}/${id}/recommendations`}
         />
       </>
     </div>
