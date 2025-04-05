@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const router = useRouter();
+  const [isSearch, setIsSearch] = useState(false);
   return (
     <nav
       id="#top"
@@ -14,26 +13,24 @@ const Navbar = () => {
         <div className="glorious cursor-pointer select-none">MovieMania</div>
       </Link>
 
-      <div className="flex relative select-none items-center gap-x-4 text-xs sm:text-lg">
-        <div className="hidden sm:flex items-center gap-x-3 title">
-          <div
-            className="cursor-pointer"
-            onClick={() => router.push("/explore/movie")}
-          >
-            Movies
+      {isSearch ? (
+        <input type="text" />
+      ) : (
+        <div className="flex relative select-none items-center gap-x-4 text-xs sm:text-lg">
+          <div className="hidden sm:flex items-center gap-x-3 title">
+            <Link href={"/explore/movie"} className="cursor-pointer">
+              Movies
+            </Link>
+            <Link href={"/explore/tv"} className="cursor-pointer">
+              TV Shows
+            </Link>
           </div>
-          <div
-            className="cursor-pointer"
-            onClick={() => router.push("/explore/tv")}
-          >
-            TV Shows
+          <div className="cursor-pointer" onClick={() => setIsSearch(false)}>
+            🔍
           </div>
+          <div className="cursor-pointer sm:hidden">🍔</div>
         </div>
-        <label htmlFor="searchbar" className="cursor-pointer">
-          🔍
-        </label>
-        <div className="cursor-pointer sm:hidden">🍔</div>
-      </div>
+      )}
     </nav>
   );
 };

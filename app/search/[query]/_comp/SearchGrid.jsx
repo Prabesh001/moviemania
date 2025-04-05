@@ -41,26 +41,25 @@ const SearchGrid = ({ query }) => {
               </>
             )}
           </div>
-          <Link href="#top">
-            <div className="flex md:justify-center">
-              {page !== data?.total_pages && (
-                <button
-                  onClick={() => {
-                    setPage((prev) => prev + 1);
-                  }}
-                  className="cursor-pointer w-full md:w-max bg-slate-900 hover:bg-slate-800 px-3 py-2 rounded-md"
-                >
-                  {loading ? (
-                    <span className="flex gap-x-2 justify-center items-center">
-                      <Spinner /> Loading...{" "}
-                    </span>
-                  ) : (
-                    "Load More"
-                  )}
-                </button>
-              )}
-            </div>
-          </Link>
+          <div className="flex md:justify-center">
+            {page !== data?.total_pages && (
+              <button
+                onClick={() => {
+                  setPage((prev) => prev + 1);
+                  window.scrollTo({ top: 0 });
+                }}
+                className="cursor-pointer w-full md:w-max bg-slate-900 hover:bg-slate-800 px-3 py-2 rounded-md"
+              >
+                {loading ? (
+                  <span className="flex gap-x-2 justify-center items-center">
+                    <Spinner /> Loading...{" "}
+                  </span>
+                ) : (
+                  "Load More"
+                )}
+              </button>
+            )}
+          </div>
         </div>
       )}
     </>

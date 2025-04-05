@@ -3,8 +3,8 @@ import InfiniteMovies from "./_comp/Infinity";
 import ErrorPage from "@/components/ErrorPage";
 
 const ExploreMovie = async ({ params }) => {
-  const query = await params.movie;
-  console.log(query)
+  const prm = await params;
+  const query = prm.movie;
 
   return (
     <>

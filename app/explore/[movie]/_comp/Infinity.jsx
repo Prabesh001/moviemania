@@ -2,9 +2,8 @@
 import MovieCard from "@/components/MovieCard";
 import Spinner from "@/utils/Spinner";
 import useFetch from "@/utils/useFetch";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+import React, { useEffect, useState } from "react";
 
 const InfiniteMovies = ({ query }) => {
   const { ref, inView } = useInView();
@@ -14,16 +13,7 @@ const InfiniteMovies = ({ query }) => {
 
   useEffect(() => {
     if (data) {
-      setAllData((prevData) => {
-        const uniqueMovies = [...prevData, ...data.results].reduce(
-          (acc, movie) => {
-            if (!acc.some((m) => m.id === movie.id)) acc.push(movie);
-            return acc;
-          },
-          []
-        );
-        return uniqueMovies;
-      });
+      setAllData((prevData) => [...prevData, ...data?.results]);
     }
   }, [page]);
 

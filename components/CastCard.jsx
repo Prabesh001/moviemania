@@ -1,10 +1,11 @@
 import { image_url, images } from "@/public/images";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-const CastCard = ({ name, char, photo }) => {
+const CastCard = ({ id,name, char, photo }) => {
   return (
-    <>
+    <Link href={`/person/${id}`}>
       <div className="py-2 flex flex-col">
         <div className="w-40 h-40 overflow-hidden border-2 border-white rounded-full">
           <Image
@@ -27,7 +28,7 @@ const CastCard = ({ name, char, photo }) => {
           )}
         </div>
       </div>
-    </>
+    </Link>
   );
 };
 

@@ -9,9 +9,19 @@ const Trending = () => {
   const [time1, setTime1] = useState("day");
   const [type, setType] = useState("movie");
   const [type1, setType1] = useState("movie");
+  const [type2, setType2] = useState("movie");
 
   return (
     <>
+      <CardGrid
+        title={type2 === "movie" ? "In Theatres" : "On The Air"}
+        sl={"movie"}
+        sr={"tv"}
+        category={type2}
+        setCategory={setType2}
+        endpoint={type2}
+        path={type2 === "movie" ? "/movie/now_playing" : "/tv/on_the_air"}
+      />
       <CardGrid
         title={"Trending Movies"}
         sl={"day"}
@@ -42,7 +52,7 @@ const Trending = () => {
       />
 
       <CardGrid
-        title={"What's Popular"}
+        title={"What's Popular?"}
         sl={"movie"}
         sr={"tv"}
         category={type1}

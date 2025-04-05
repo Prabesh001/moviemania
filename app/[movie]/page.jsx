@@ -3,10 +3,14 @@ import MovieById from "./[id]/page";
 import ErrorPage from "@/components/ErrorPage";
 
 const MovieOrTV = async ({ params }) => {
-  const { movie } = params;
+  const { movie, id } = params;
+
+  const isValidType = movie === "movie" || movie === "tv";
+  const hasId = !!id;
+
   return (
     <>
-      {(movie === "movie" || movie === "tv" )? (
+      {isValidType && hasId ? (
         <MovieById movie={movie} />
       ) : (
         <ErrorPage />
