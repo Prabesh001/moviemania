@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const GlassBox = ({ title, data }) => {
-  console.log(data)
+  console.log(data);
   const [showAll, setShowAll] = useState(false);
   return (
     <div
@@ -16,8 +16,8 @@ const GlassBox = ({ title, data }) => {
       >
         {data}
       </p>
-      {(data!=="N/A" && !showAll) && (
-        <span className="text-xs text-blue-500">Show More</span>
+      {data !== "N/A" && !showAll && (
+        <div className="text-xs flex justify-end text-blue-400">Show More</div>
       )}
     </div>
   );

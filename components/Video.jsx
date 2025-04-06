@@ -1,5 +1,5 @@
 import { images } from "@/public/images";
-import PlayButton from "@/public/play";
+import PlayButton from "@/utils/play";
 import Image from "next/image";
 import React, { useState } from "react";
 

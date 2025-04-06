@@ -187,7 +187,7 @@ export const Movie = ({ movie, id }) => {
                     <div className="flex overflow-x-scroll noscroll gap-4">
                       {creditData.cast?.map((c, i) => (
                         <CastCard
-                          key={c.id}
+                          key={`${c.id}+${i}`}
                           name={c.name || c.original_name}
                           photo={c.profile_path}
                           char={c.character}

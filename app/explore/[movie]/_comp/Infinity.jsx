@@ -4,12 +4,23 @@ import Spinner from "@/utils/Spinner";
 import useFetch from "@/utils/useFetch";
 import { useInView } from "react-intersection-observer";
 import React, { useEffect, useState } from "react";
+import FilterOptions from "@/components/FilterOptions";
+import { movieSortOptions, tvSortOptions } from "@/utils/data";
 
 const InfiniteMovies = ({ query }) => {
   const { ref, inView } = useInView();
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(1);
-  const { data, loading, error } = useFetch(`/${query}/popular?page=${page}`);
+  const [sorting, setSorting] = useState("popularity.desc");
+  const [genre, setGenre] = useState(null);
+
+  const { data: genreList } = useFetch(`/genre/${query}/list`);
+
+  const fullUrl = `/discover/${query}?sort_by=${sorting}&page=${page}${
+    genre ? `&with_genres=${genre}` : ""
+  }`;
+
+  const { data, loading, error } = useFetch(fullUrl);
 
   useEffect(() => {
     if (data) {
@@ -24,9 +35,20 @@ const InfiniteMovies = ({ query }) => {
 
   useEffect(() => {
     if (inView && !loading) {
-      setPage((prevPage) => prevPage + 1);
+      const timeout = setTimeout(() => {
+        setPage((prevPage) => prevPage + 1);
+      }, 300);
+
+      return () => clearTimeout(timeout);
     }
   }, [inView, loading]);
+
+  useEffect(() => {
+    setAllData([]);
+    setGenre(null)
+    setSorting(null)
+    setPage(1);
+  }, [sorting, genre, query]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -47,6 +69,19 @@ const InfiniteMovies = ({ query }) => {
           >
             »
           </div>
+          <p className="capitalize gray-gr m-2">
+            Explore {query === "tv" ? "Tv Shows" : query}
+          </p>
+          {genreList && (
+            <FilterOptions
+              genreList={genreList?.genres}
+              sortList={query === "movie" ? movieSortOptions : tvSortOptions}
+              genre={genre}
+              setGenre={setGenre}
+              sorting={sorting}
+              setSorting={setSorting}
+            />
+          )}
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
             {allData.length > 0 &&
               allData.map((movie, i) => (

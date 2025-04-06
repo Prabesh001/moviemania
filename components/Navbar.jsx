@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isSearch, setIsSearch] = useState(false);
@@ -19,16 +20,34 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav id="top" className="flex justify-between items-center bg-gray-900 p-4 px-6">
+    <nav
+      id="top"
+      className="flex justify-between gap-x-4 items-center bg-gray-900 p-4 px-6"
+    >
       <Link href="/">
-        <div className="glorious cursor-pointer select-none text-white text-xl font-bold">
-          MovieMania
+        <div className="flex gap-1 items-center justify-center">
+          <div className="h-8 w-[2.05rem]">
+            <Image
+              src={"/favicon.svg"}
+              alt={"Logo"}
+              height={28}
+              width={28}
+              className="h-full w-full"
+            />
+          </div>
+          <div
+            className={`${
+              isSearch && "hidden sm:block"
+            } glorious cursor-pointer select-none text-white text-xl font-bold`}
+          >
+            MovieMania
+          </div>
         </div>
       </Link>
 
       {isSearch ? (
         <SearchBar
-          className="w-[60vw]"
+          className="w-[80vw] sm:w-[60vw] ml-3 box-border"
           fromTop={true}
           isSearch={isSearch}
           setIsSearch={setIsSearch}
@@ -63,14 +82,14 @@ const Navbar = () => {
               <div className="flex sm:hidden absolute top-8 right-0 text-lg flex-col bg-white text-gray-900 shadow-md rounded-md overflow-hidden z-50">
                 <Link
                   href="/explore/movie"
-                  className="cursor-pointer px-4 py-2 whitespace-nowrap hover:bg-gray-200"
+                  className="cursor-pointer px-4 py-1 text-[1rem] whitespace-nowrap hover:bg-gray-200"
                   onClick={() => setShowOptions(false)}
                 >
                   Movies
                 </Link>
                 <Link
                   href="/explore/tv"
-                  className="cursor-pointer px-4 py-2 whitespace-nowrap hover:bg-gray-200"
+                  className="cursor-pointer px-4 py-1 text-[1rem] whitespace-nowrap hover:bg-gray-200"
                   onClick={() => setShowOptions(false)}
                 >
                   TV Shows
