@@ -1,12 +1,3 @@
-export const GlassBox = ({ title, data }) => {
-  return (
-    <div className="flex flex-col glass p-4 md:max-w-[50vw]">
-      <h1 className="gray-gr font-bold text-xl sm:text-2xl">{title}</h1>
-      <p className="text-sm sm:text-md mx-1 sm:line-clamp-[10]">{data}</p>
-    </div>
-  );
-};
-
 export const StatusBar = ({ status, released, runtime }) => {
   const formatRunTime = (runtime) => {
     if (runtime === "N/A") return "N/A";

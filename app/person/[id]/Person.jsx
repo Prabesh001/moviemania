@@ -1,20 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import useFetch from "@/utils/useFetch";
-import { image_url } from "@/public/images";
-import Skeleton from "@/utils/Skeleton";
-import ErrorPage from "@/components/ErrorPage";
+import { image_url, images } from "@/public/images";
 import {
   Compartment,
-  GlassBox,
   SmallCompartment,
 } from "@/components/ui/SmallerComponents";
 import MovieCard from "@/components/MovieCard";
+import GlassBox from "@/components/ui/Glassbox";
+import Toggle from "@/components/Toggle";
+import ErrorPage from "@/components/ErrorPage";
+import useFetch from "@/utils/useFetch";
+import Skeleton from "@/utils/Skeleton";
 import SkeletonCard from "@/utils/SkeletonCard";
 
 const Person = ({ id }) => {
+  const [castFor, setCastFor] = useState("movie");
+  const [crewFor, setCrewFor] = useState("movie");
   const { data, loading, error } = useFetch(`/person/${id}`);
+
+  console.log(data);
 
   const {
     data: movieCreditData,
@@ -22,7 +28,6 @@ const Person = ({ id }) => {
     error: movieCreditError,
   } = useFetch(`/person/${id}/movie_credits`);
 
-  console.log(data);
   const {
     data: tvCreditData,
     loading: tvCreditLoading,
@@ -72,8 +77,12 @@ const Person = ({ id }) => {
                   ) : (
                     <div className="w-[60vw] sm:w-60 md:w-80">
                       <Image
-                        src={`${image_url}${data.profile_path}`}
-                        alt={"BACKGROUND IMAGE"}
+                        src={
+                          data.profile_path
+                            ? `${image_url}${data.profile_path}`
+                            : images.noPoster
+                        }
+                        alt={"Profile Image"}
                         width={800}
                         height={800}
                         draggable={false}
@@ -98,7 +107,7 @@ const Person = ({ id }) => {
                     <Skeleton className="h-14 w-full" />
                   </div>
                 ) : (
-                  <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-5 mb-10">
                     <GlassBox
                       title={"Biography"}
                       data={data.biography || "N/A"}
@@ -109,11 +118,11 @@ const Person = ({ id }) => {
                       label3={"Place Of Birth"}
                       value1={
                         data.deathday
-                          ? `Dead(${data.deathday.split("-")[0]})`
+                          ? `Dead(${data.deathday?.split("-")[0]})`
                           : "Alive"
                       }
-                      value2={data.birthday}
-                      value3={data.place_of_birth}
+                      value2={data.birthday || "N/A"}
+                      value3={data.place_of_birth || "N/A"}
                     />
                     <Description
                       label1={"Name"}
@@ -122,7 +131,11 @@ const Person = ({ id }) => {
                       value3={
                         data.gender === 2 ? "Male" : 1 ? "Female" : "Others"
                       }
-                      value2={calculateAge(data.birthday.split("-")[0])}
+                      value2={
+                        data.birthday
+                          ? calculateAge(data.birthday.split("-")[0])
+                          : "N/A"
+                      }
                       value1={data.name}
                     />
 
@@ -134,7 +147,7 @@ const Person = ({ id }) => {
                     <div className=" flex flex-col xl:flex-row flex-wrap items-center gap-3">
                       <div className="h2">Also Known As:</div>
                       <div className="flex flex-col xl:flex-row flex-wrap gap-3 items-center text-center text-sm text-gray-400">
-                        {data.also_known_as.length > 0
+                        {data.also_known_as?.length > 0
                           ? data.also_known_as.map((n, i) => (
                               <span key={i}>{n}</span>
                             ))
@@ -149,34 +162,40 @@ const Person = ({ id }) => {
           )}
 
           <>
-            <CreditGrid
-              title={"Movies(As Cast)"}
-              data={movieCreditData?.cast}
-              loading={loading}
-              error={error}
-              endpoint="movie"
-            />
-            <CreditGrid
-              title={"Movies(As Crew)"}
-              data={movieCreditData?.crew}
-              loading={movieCreditLoading}
-              error={movieCreditError}
-              endpoint="movie"
-            />
-            <CreditGrid
-              title={"TV Shows(As Cast)"}
-              data={tvCreditData?.cast}
-              loading={tvCreditLoading}
-              error={movieCreditError}
-              endpoint="tv"
-            />
-            <CreditGrid
-              title={"TV Shows(As Crew)"}
-              data={tvCreditData?.crew}
-              loading={tvCreditLoading}
-              error={tvCreditError}
-              endpoint="tv"
-            />
+            <div className="mt-8">
+              <CreditGrid
+                title={"As Cast"}
+                data={
+                  castFor === "movie"
+                    ? movieCreditData?.cast
+                    : tvCreditData?.cast
+                }
+                loading={loading}
+                error={error}
+                sl={"movie"}
+                sr={"tv"}
+                setCategory={setCastFor}
+                category={castFor}
+                endpoint={castFor}
+              />
+            </div>
+            <div className="mt-8">
+              <CreditGrid
+                title={"As Crew"}
+                data={
+                  crewFor === "movie"
+                    ? movieCreditData?.crew
+                    : tvCreditData?.crew
+                }
+                loading={movieCreditLoading}
+                error={movieCreditError}
+                sl={"movie"}
+                sr={"tv"}
+                setCategory={setCrewFor}
+                category={crewFor}
+                endpoint={crewFor}
+              />
+            </div>
           </>
         </div>
       )}
@@ -197,9 +216,22 @@ const Description = ({ label1, label2, label3, value1, value2, value3 }) => {
   );
 };
 
-const CreditGrid = ({ title, data, loading, error, endpoint }) => {
+const CreditGrid = ({
+  title,
+  data,
+  loading,
+  error,
+  endpoint,
+  category,
+  setCategory,
+  sl,
+  sr,
+}) => {
   return (
-    <>
+    <section className="relative">
+      <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
+        <Toggle category={category} setCategory={setCategory} sl={sl} sr={sr} />
+      </div>
       <h1 className="font-bold text-2xl">{title}</h1>
       <div>
         {error && <p className="text-red-500">Error Occured: {error}</p>}
@@ -224,7 +256,7 @@ const CreditGrid = ({ title, data, loading, error, endpoint }) => {
           )}
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

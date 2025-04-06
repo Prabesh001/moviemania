@@ -62,7 +62,7 @@ body {
   @apply relative z-20 bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl;
 }
 .title {
-  @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent font-bold text-xs sm:text-[1rem] lg:text-lg;
+  @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent font-bold text-sm sm:text-[1rem] lg:text-lg;
 }
 .movie-sum {
   @apply text-xs sm:text-sm text-white;

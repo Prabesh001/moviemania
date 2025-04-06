@@ -27,7 +27,13 @@ const MovieCard = ({
       href={
         endpoint
           ? `/${endpoint}/${movie.id}`
-          : `/${movie.media_type === "movie" ? "movie" : "tv"}/${movie.id}`
+          : `/${
+              movie.media_type === "movie"
+                ? "movie"
+                : movie.media_type === "person"
+                ? "person"
+                : "tv"
+            }/${movie.id}`
       }
     >
       <MotionDiv
@@ -48,7 +54,7 @@ const MovieCard = ({
         >
           <div
             className={`relative ${
-              fromSearch ? "w-full" : "w-25 sm:w-50"
+              fromSearch ? "w-full" : "w-35 sm:w-50"
             } rounded-md overflow-hidden`}
           >
             <div className="w-full relative">
@@ -56,6 +62,8 @@ const MovieCard = ({
                 src={
                   movie.poster_path
                     ? `${image_url}${movie.poster_path}`
+                    : movie.profile_path
+                    ? `${image_url}${movie.profile_path}`
                     : images.noPoster
                 }
                 alt={movie.title || movie.name || movie.original_name}
@@ -79,12 +87,16 @@ const MovieCard = ({
             <div className="absolute top-0 right-0 text-[10px] bg-[#0000008c] w-max px-[3px] py-0">
               {movie.original_language?.toUpperCase()}
             </div>
-            <h1 className="title w-full text-center overflow-hidden line-clamp-1 mt-1">
+            <h1
+              className={`title w-full overflow-hidden line-clamp-2 sm:line-clamp-1 mt-1 ${
+                fromPerson && "text-center"
+              }`}
+            >
               {movie.title || movie.name || movie.original_name}
             </h1>
 
             {fromPerson ? (
-              <div className="w-full text-center text-xs sm:text-sm text-gray-300">
+              <div className="w-full text-center text-xs sm:text-sm text-gray-200">
                 {role}
               </div>
             ) : (
@@ -94,10 +106,16 @@ const MovieCard = ({
                     {formatDate(movie.release_date || movie.first_air_date)}
                   </p>
                 )}
+                {movie.media_type === "person" &&
+                  movie.known_for_department && (
+                    <p>{movie.known_for_department}</p>
+                  )}
 
                 <div className="flexbox font-bold bg-[#4136368c] p-[1px] px-[3px] rounded-xs text-gray-300">
                   <span>⭐</span>
-                  <span>{movie.vote_average?.toFixed(1)}</span>
+                  <span>
+                    {movie.vote_average?.toFixed(1) || movie.popularity}
+                  </span>
                 </div>
               </div>
             )}

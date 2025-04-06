@@ -11,10 +11,10 @@ import ErrorPage from "@/components/ErrorPage";
 import {
   ArraySmallCompartment,
   CreditCompartment,
-  GlassBox,
   SeriesStatusBar,
   StatusBar,
 } from "@/components/ui/SmallerComponents";
+import GlassBox from "@/components/ui/Glassbox";
 
 export const Movie = ({ movie, id }) => {
   const { data, loading, error } = useFetch(`/${movie}/${id}`);

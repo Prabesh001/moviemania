@@ -13,9 +13,14 @@ const InfiniteMovies = ({ query }) => {
 
   useEffect(() => {
     if (data) {
-      setAllData((prevData) => [...prevData, ...data?.results]);
+      setAllData((prevData) => {
+        const newResults = data.results.filter(
+          (movie) => !prevData.some((m) => m.id === movie.id)
+        );
+        return [...prevData, ...newResults];
+      });
     }
-  }, [page]);
+  }, [data]);
 
   useEffect(() => {
     if (inView && !loading) {
