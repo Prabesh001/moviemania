@@ -1,34 +1,97 @@
 import React from "react";
+import Select from "react-select";
 
-const FilterOptions = ({ setGenre, setSorting, genreList, sortList }) => {
-  const handleSortingChange = (e) => {
-    setSorting(e.target.value);
+const FilterOptions = ({
+  query,
+  genre,
+  setGenre,
+  sorting,
+  setSorting,
+  genreList,
+  sortList,
+  genreName,
+  setGenreName,
+}) => {
+  const handleSortingChange = (selectedOption) => {
+    setSorting(selectedOption.value);
   };
 
-  const handleGenreChange = (e) => {
-    setGenre(e.target.value);
+  const handleGenreChange = (selectedOptions) => {
+    if (!selectedOptions || selectedOptions.length === 0) {
+      setGenre("");
+      setGenreName("");
+      return;
+    }
+
+    const selectedIds = selectedOptions.map((option) => option.id).join(",");
+    const selectedNames = selectedOptions
+      .map((option) => option.name)
+      .join(" & ");
+
+    setGenre(selectedIds);
+    setGenreName(selectedNames);
   };
 
   return (
-    <section className="px-3 flex gap-5 justify-end">
-      <select className="sort" name="sortBy" onChange={handleSortingChange}>
-        {sortList.map((g) => (
-          <option key={g.value} value={g.value}>
-            {g.name}
-          </option>
-        ))}
-      </select>
-
-      <select className="sort" defaultValue="" name="genre" onChange={handleGenreChange}>
-        <option value="" disabled>
-          Filter Genre
-        </option>
-        {genreList.map((g) => (
-          <option key={g.id} value={g.id}>
-            {g.name}
-          </option>
-        ))}
-      </select>
+    <section>
+      <p className="capitalize gray-gr m-2">
+        Explore <span className="text-2xl">»</span>{" "}
+        {query === "tv" ? "Tv Shows" : query}
+        {genreName !== "" ? ` » ${genreName}` : ""}
+      </p>
+      <div className="px-3 flex flex-wrap gap-5 justify-end">
+        <Select
+          name="sortBy"
+          closeMenuOnSelect={true}
+          options={sortList}
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.value}
+          onChange={handleSortingChange}
+          value={sortList.find((option) => option.value === sorting)} // <- controlled input
+          placeholder="Sort By"
+          className="react-select-container sort noscroll"
+          classNamePrefix="react-select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              neutral80: "lightgray",
+              neutral50: "lightgray",
+              neutral0: "#000319",
+              primary25: "gray",
+              primary: "lightgray",
+              primary50: "blue",
+            },
+          })}
+        />
+        <Select
+          isMulti
+          name="genres"
+          closeMenuOnSelect={true}
+          options={genreList && genreList}
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.id}
+          onChange={handleGenreChange}
+          placeholder="Select genres"
+          className="react-select-container sort"
+          classNamePrefix="react-select"
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              neutral80: "lightgray",
+              neutral10: "#0003338c",
+              neutral50: "lightgray",
+              neutral0: "#000319",
+              primary25: "gray",
+              primary: "lightgray",
+              primary50: "blue",
+            },
+          })}
+        />{" "}
+      </div>
     </section>
   );
 };

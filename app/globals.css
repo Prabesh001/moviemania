@@ -72,7 +72,7 @@ body {
   @apply bg-gradient-to-b from-neutral-200 to-neutral-500 bg-clip-text text-transparent;
 }
 .sort {
-  @apply bg-[#211c36b3] p-1 sm:p-3 text-xs sm:text-sm min-w-20;
+  @apply text-xs sm:text-sm min-w-40 sm:min-w-55 text-gray-300;
 }
 
 .noscroll::-webkit-scrollbar {
@@ -116,13 +116,6 @@ body {
     transform: rotate(360deg);
   }
 }
-
-.sort option {
-  background: lightgray;
-  color: #000319;
-}
-
-.sort option:disabled{
-  background-color: rgb(220, 216, 216);
-  color: white;
+.react-select{
+  background-color: #0e0b0be4;
 }

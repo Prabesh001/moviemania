@@ -12,7 +12,8 @@ const InfiniteMovies = ({ query }) => {
   const [allData, setAllData] = useState([]);
   const [page, setPage] = useState(1);
   const [sorting, setSorting] = useState("popularity.desc");
-  const [genre, setGenre] = useState(null);
+  const [genre, setGenre] = useState("");
+  const [genreName, setGenreName] = useState("");
 
   const { data: genreList } = useFetch(`/genre/${query}/list`);
 
@@ -21,6 +22,8 @@ const InfiniteMovies = ({ query }) => {
   }`;
 
   const { data, loading, error } = useFetch(fullUrl);
+
+  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -47,10 +50,10 @@ const InfiniteMovies = ({ query }) => {
     setAllData([]);
     setPage(1);
   }, [sorting, genre]);
-  
+
   useEffect(() => {
     setSorting("popularity.desc");
-    setGenre(null);
+    setGenre("");
     setAllData([]);
     setPage(1);
   }, [query]);
@@ -69,13 +72,10 @@ const InfiniteMovies = ({ query }) => {
         <div className="flex flex-col cursor-pointer">
           <div
             onClick={scrollToTop}
-            className="fixed flex items-center justify-center pr-0 pb-2 rotate-270 right-10 bottom-10 z-30 bg-blue-400 h-12 w-12 text-5xl font-bold text-white rounded-full"
+            className="fixed transition-all duration-300 flex items-center justify-center pl-0 pb-1 sm:pr-0 sm:pb-2 rotate-270 right-4 sm:right-10 bottom-6 sm:bottom-10 z-30 bg-blue-400 h-10 sm:h-12 aspect-square text-4xl sm:text-5xl font-bold text-white rounded-full"
           >
             »
           </div>
-          <p className="capitalize gray-gr m-2">
-            Explore {query === "tv" ? "Tv Shows" : query}
-          </p>
           {genreList && (
             <FilterOptions
               genreList={genreList?.genres}
@@ -84,6 +84,9 @@ const InfiniteMovies = ({ query }) => {
               setGenre={setGenre}
               sorting={sorting}
               setSorting={setSorting}
+              query={query}
+              genreName={genreName}
+              setGenreName={setGenreName}
             />
           )}
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -98,12 +101,14 @@ const InfiniteMovies = ({ query }) => {
                 />
               ))}
           </div>
-          <section
-            ref={ref}
-            className="overflow-hidden flex justify-center items-center"
-          >
-            <Spinner />
-          </section>
+          {(data?.total_pages > 1) && (
+            <section
+              ref={ref}
+              className="overflow-hidden flex justify-center items-center"
+            >
+              <Spinner />
+            </section>
+          )}
         </div>
       )}
     </div>
