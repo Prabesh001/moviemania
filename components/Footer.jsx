@@ -1,5 +1,6 @@
-import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { FaFacebook, FaGithub, FaInstagram, FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   const details = ["Terms-Of-Use", "Privacy-Policy", "About", "Blog", "FAQ"];
@@ -24,18 +25,21 @@ const Footer = () => {
       </div>
 
       <div className="social flex gap-x-3">
-        <a href="#" className="flex items-center gap-x-2">
-          <Image src="/globe.svg" alt="facebook" width={20} height={20} />
-          Facebook
-        </a>
-        <a href="#" className="flex items-center gap-x-2">
-          <Image src="/globe.svg" alt="twitter" width={20} height={20} />
-          Twitter
-        </a>
-        <a href="#" className="flex items-center gap-x-2">
-          <Image src="/globe.svg" alt="instagram" width={20} height={20} />
-          Instagram
-        </a>
+        <Link
+          href="https://www.facebook.com/"
+          className="flex items-center gap-x-2"
+        >
+          <FaFacebook size={22} />
+        </Link>
+        <Link href="https://www.instagram.com/" className="flex items-center gap-x-2">
+          <FaInstagram size={22} />
+        </Link>
+        <Link href="https://www.twitter.com/" className="flex items-center gap-x-2">
+          <FaXTwitter size={22} />
+        </Link>
+        <Link href="https://github.com/Prabesh001" className="flex items-center gap-x-2">
+          <FaGithub size={22} />
+        </Link>
       </div>
     </div>
   );

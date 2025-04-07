@@ -45,15 +45,19 @@ const InfiniteMovies = ({ query }) => {
 
   useEffect(() => {
     setAllData([]);
-    setGenre(null)
-    setSorting(null)
     setPage(1);
-  }, [sorting, genre, query]);
+  }, [sorting, genre]);
+  
+  useEffect(() => {
+    setSorting("popularity.desc");
+    setGenre(null);
+    setAllData([]);
+    setPage(1);
+  }, [query]);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     });
   };
 
