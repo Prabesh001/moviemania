@@ -32,7 +32,7 @@ const SearchBar = ({ className = "w-[80vw]", fromTop, setIsSearch }) => {
       </label>
       {!fromTop ? (
         <button
-          className="yr-gradient rounded-r-4xl text-lg px-3 sm:px-6 py-2 sm:py-3"
+          className="yr-gradient cursor-pointer rounded-r-4xl text-lg px-3 sm:px-6 py-2 sm:py-3"
           onClick={handleSearchClick}
         >
           Search
