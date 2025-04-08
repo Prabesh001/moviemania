@@ -23,8 +23,6 @@ const InfiniteMovies = ({ query }) => {
 
   const { data, loading, error } = useFetch(fullUrl);
 
-  console.log(data);
-
   useEffect(() => {
     if (data) {
       setAllData((prevData) => {
@@ -40,7 +38,7 @@ const InfiniteMovies = ({ query }) => {
     if (inView && !loading) {
       const timeout = setTimeout(() => {
         setPage((prevPage) => prevPage + 1);
-      }, 300);
+      }, 500);
 
       return () => clearTimeout(timeout);
     }
@@ -80,7 +78,7 @@ const InfiniteMovies = ({ query }) => {
             <FilterOptions
               genreList={genreList?.genres}
               sortList={query === "movie" ? movieSortOptions : tvSortOptions}
-              genre={genre}
+              page={"Explore"}
               setGenre={setGenre}
               sorting={sorting}
               setSorting={setSorting}

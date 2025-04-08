@@ -3,7 +3,7 @@ import Select from "react-select";
 
 const FilterOptions = ({
   query,
-  genre,
+  page,
   setGenre,
   sorting,
   setSorting,
@@ -35,9 +35,11 @@ const FilterOptions = ({
   return (
     <section>
       <p className="capitalize gray-gr m-2">
-        Explore <span className="text-2xl">»</span>{" "}
-        {query === "tv" ? "Tv Shows" : query}
-        {genreName !== "" ? ` » ${genreName}` : ""}
+        {page} <span className="text-2xl">»</span>{" "}
+        <span className="capitalize">
+          {query === "tv" ? "Tv Shows" : query.replaceAll("%20", " ")}
+          {genreName !== "" ? ` » ${genreName}` : ""}
+        </span>
       </p>
       <div className="px-3 flex flex-wrap gap-5 justify-end">
         <Select

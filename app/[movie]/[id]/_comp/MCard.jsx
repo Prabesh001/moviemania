@@ -170,7 +170,7 @@ export const Movie = ({ movie, id }) => {
                           className="flex flex-col justify-center items-center w-40 gap-2"
                         >
                           <div className="w-full aspect-square overflow-hidden border-2 border-white rounded-full">
-                            <Skeleton className="w-40 h-40" />
+                            <Skeleton className="w-25 sm:w-40 aspect-square" />
                           </div>
                           <Skeleton className="w-[90%] h-4" />
                           <Skeleton className="w-[70%] h-4" />

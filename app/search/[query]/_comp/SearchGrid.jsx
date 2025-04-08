@@ -13,8 +13,6 @@ const SearchGrid = ({ query }) => {
     `/search/multi?query=${query}&page=${page}`
   );
 
-  console.log(data)
-
   return (
     <>
       {error ? (

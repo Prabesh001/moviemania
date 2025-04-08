@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const GlassBox = ({ title, data }) => {
-  console.log(data);
   const [showAll, setShowAll] = useState(false);
   return (
     <div

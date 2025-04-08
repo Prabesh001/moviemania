@@ -9,7 +9,7 @@ const SearchBar = ({ className = "w-[80vw]", fromTop, setIsSearch }) => {
   const handleSearchClick = (e) => {
     e.preventDefault();
     if (search.trim() !== "") {
-      router.push(`/search/${search}`);
+      router.push(`/search/${search.replaceAll(" ","-")}`);
     }
   };
   

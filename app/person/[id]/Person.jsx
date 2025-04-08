@@ -20,8 +20,6 @@ const Person = ({ id }) => {
   const [crewFor, setCrewFor] = useState("movie");
   const { data, loading, error } = useFetch(`/person/${id}`);
 
-  console.log(data);
-
   const {
     data: movieCreditData,
     loading: movieCreditLoading,
