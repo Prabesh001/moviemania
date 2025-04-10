@@ -3,9 +3,7 @@ import MovieCard from "@/components/MovieCard";
 import Pagination from "@/components/Pagination";
 import Spinner from "@/utils/Spinner";
 import useFetch from "@/utils/useFetch";
-import Link from "next/link";
 import React, { useState } from "react";
-import ReactPaginate from "react-paginate";
 
 const SearchGrid = ({ query }) => {
   const [page, setPage] = useState(1);
@@ -17,6 +15,10 @@ const SearchGrid = ({ query }) => {
     <>
       {error ? (
         <p>Error</p>
+      ) : loading ? (
+        <div className="flex justify-center items-center min-h-[50vh]">
+          <Spinner />
+        </div>
       ) : (
         <div className="flex flex-col">
           <div className="grid m-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
@@ -41,25 +43,7 @@ const SearchGrid = ({ query }) => {
               </>
             )}
           </div>
-          <div className="flex md:justify-center">
-            {page !== data?.total_pages && (
-              <button
-                onClick={() => {
-                  setPage((prev) => prev + 1);
-                  window.scrollTo({ top: 0 });
-                }}
-                className="cursor-pointer w-full md:w-max bg-slate-900 hover:bg-slate-800 px-3 py-2 rounded-md"
-              >
-                {loading ? (
-                  <span className="flex gap-x-2 justify-center items-center">
-                    <Spinner /> Loading...{" "}
-                  </span>
-                ) : (
-                  "Load More"
-                )}
-              </button>
-            )}
-          </div>
+          <Pagination page={page} setPage={setPage} total={data?.total_pages}/>
         </div>
       )}
     </>

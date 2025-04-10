@@ -1,5 +1,5 @@
 "use client";
-import { image_url, images } from "@/public/images";
+import { image_og_url, image_url, images } from "@/public/images";
 import Image from "next/image";
 import React from "react";
 import SearchBar from "./SearchBar";
@@ -15,7 +15,7 @@ const Hero = () => {
     <div className="w-full aspect-video relative overflow-hidden">
       {!loading && (
         <Image
-          src={poster ? `${image_url}${poster}` : images.background}
+          src={poster ? `${image_og_url}${poster}` : images.background}
           alt="Hero Poster"
           width={1920}
           height={1080}

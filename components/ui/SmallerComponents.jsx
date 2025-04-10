@@ -40,7 +40,7 @@ export const ArraySmallCompartment = ({ title, value }) => {
   const val = Array.isArray(value) ? value : [value];
   return (
     <>
-      <div className=" flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <div className="h2">{title}:</div>
         <div className="flex flex-wrap gap-1 items-center text-center text-sm text-gray-400">
           {value === "N/A"

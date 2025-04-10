@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import useFetch from "@/utils/useFetch";
-import { image_url, images } from "@/public/images";
+import { image_og_url, image_url, images } from "@/public/images";
 import CastCard from "@/components/CastCard";
 import Video from "@/components/Video";
 import CardGrid from "@/components/CardGrid";
@@ -45,7 +45,7 @@ export const Movie = ({ movie, id }) => {
                 <section>
                   <div className="w-full relative">
                     <Image
-                      src={`${image_url}${data?.backdrop_path}`}
+                      src={`${image_og_url}${data?.backdrop_path}`}
                       alt={"BACKGROUND IMAGE"}
                       width={800}
                       height={800}
