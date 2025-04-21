@@ -32,7 +32,7 @@ const CardGrid = ({
       <h1 className="font-bold text-2xl">{title}</h1>
 
       <div>
-        <div className="flex gap-3 sm:gap-4 px-1 py-2 overflow-x-scroll noscroll">
+        <div className="flex snap-x snap-mandatory gap-3 sm:gap-4 px-1 py-2 overflow-x-scroll noscroll">
           {error ? (
             <p className="text-red-500">Error Occured: {error}</p>
           ) : loading ? (

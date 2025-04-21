@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 import useFetch from "@/utils/useFetch";
 
 const Hero = () => {
-  const { data, loading } = useFetch("/trending/all/day");
+  const { data, loading } = useFetch("/trending/all/week");
   const random = Math.round((Math.random() * 100) % 21);
 
   const poster = data?.results[random]?.backdrop_path;

@@ -46,7 +46,7 @@ const MovieCard = ({
           duration: 0.5,
         }}
         viewport={0}
-        className="max-w-sm rounded relative w-full"
+        className="max-w-sm snap-start rounded relative w-full"
       >
         <div
           title={movie.title || movie.name || movie.original_name}
