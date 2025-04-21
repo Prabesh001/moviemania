@@ -40,6 +40,7 @@ const MovieCard = ({
         variants={variants}
         initial="hidden"
         animate="visible"
+        style={{ willChange: "transform" }}
         transition={{
           delay: (index % 20) * 0.15,
           ease: "easeInOut",
