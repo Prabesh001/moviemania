@@ -161,7 +161,7 @@ export const Movie = ({ movie, id }) => {
               {creditLoading ? (
                 <section className="px-2 py-4 overflow-x-scroll noscroll">
                   <h1 className="text-3xl font-bold mb-2">Top Cast</h1>
-                  <div className="flex overflow-x-scroll noscroll gap-4">
+                  <div className="flex snap-x snap-mandatory overflow-x-scroll noscroll gap-4">
                     {Array(8)
                       .fill()
                       .map((num, i) => (
@@ -184,7 +184,7 @@ export const Movie = ({ movie, id }) => {
                 creditData.cast.length > 0 && (
                   <section className="px-2 py-4">
                     <h1 className="text-3xl font-bold ">Top Cast</h1>
-                    <div className="flex overflow-x-scroll noscroll gap-4">
+                    <div className="flex snap-x snap-mandatory overflow-x-scroll noscroll gap-4">
                       {creditData.cast?.map((c, i) => (
                         <CastCard
                           key={`${c.id}+${i}`}
@@ -204,12 +204,12 @@ export const Movie = ({ movie, id }) => {
           {videoLoading ? (
             <>
               <h1 className="h1">Promotional Videos</h1>
-              <div className="flex overflow-x-scroll noscroll gap-3">
+              <div className="flex snap-x snap-mandatory overflow-x-scroll noscroll gap-3">
                 {Array(5)
                   .fill()
                   .map((num, i) => (
                     <Skeleton
-                      className="w-50 sm:w-80 h-30 sm:h-50 aspect-video"
+                      className="w-50 snap-start sm:w-80 h-30 sm:h-50 aspect-video"
                       key={i}
                     />
                   ))}
@@ -220,7 +220,7 @@ export const Movie = ({ movie, id }) => {
             videoData?.results?.length > 0 && (
               <>
                 <h1 className="h1">Promotional Videos</h1>
-                <div className="flex overflow-x-scroll noscroll gap-3">
+                <div className="flex snap-x snap-mandatory overflow-x-scroll noscroll gap-3">
                   {videoData.results.map((v, i) => (
                     <Video key={i} url={v.key} name={v.name} />
                   ))}
