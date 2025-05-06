@@ -19,7 +19,7 @@ const CardGrid = ({
   return (
     <div className="mt-10 relative">
       {!recommendation && (
-        <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
+        <div className="absolute flex overflow-hidden rounded-4xl border-2 border-gray-800 right-0 -top-9 sm:-top-5 sm:right-4">
           <Toggle
             category={category}
             setCategory={setCategory}
@@ -38,7 +38,7 @@ const CardGrid = ({
           ) : loading ? (
             Array(8)
               .fill()
-              .map((n, i) => <SkeletonCard key={i} />)
+              .map((_, i) => <SkeletonCard key={i} />)
           ) : data?.results.length > 0 ? (
             data?.results.map((movie, i) => (
               <MovieCard

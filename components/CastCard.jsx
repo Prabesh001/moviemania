@@ -5,7 +5,7 @@ import React from "react";
 
 const CastCard = ({ id, name, char, photo }) => {
   return (
-    <Link href={`/person/${id}`} className="snap-start">
+    <Link href={`/person/${id}`} className="snap-center">
       <div className="py-2  flex flex-col">
         <div className="w-25  sm:w-40 aspect-square overflow-hidden border-2 border-white rounded-full">
           <Image

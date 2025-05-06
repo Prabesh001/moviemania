@@ -18,8 +18,8 @@ const MovieCard = ({
   };
 
   const variants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: { opacity: 0, scale: 0.95, translateX: 5 },
+    visible: { opacity: 1, scale: 1, translateX: 0 },
   };
 
   return (
@@ -47,7 +47,7 @@ const MovieCard = ({
           duration: 0.5,
         }}
         viewport={0}
-        className="max-w-sm snap-start rounded relative w-full"
+        className="max-w-sm snap-center snap-always rounded relative w-full"
       >
         <div
           title={movie.title || movie.name || movie.original_name}

@@ -209,7 +209,7 @@ export const Movie = ({ movie, id }) => {
                   .fill()
                   .map((num, i) => (
                     <Skeleton
-                      className="w-50 snap-start sm:w-80 h-30 sm:h-50 aspect-video"
+                      className="w-50 snap-center sm:w-80 h-30 sm:h-50 aspect-video"
                       key={i}
                     />
                   ))}

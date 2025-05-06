@@ -1,5 +1,5 @@
-# 🎬 MovieMania
 
+# 🎬 MovieMania
 
 **MovieMania** is your one-stop destination for discovering trending, top-rated, and upcoming movies and TV shows. Browse through an elegant UI powered by data from The Movie Database (TMDb), and explore detailed information about your favorite titles.
 
@@ -9,23 +9,61 @@
 
 ## 📌 Features
 
-- 🔍 **Search Functionality** – Search for movies and TV shows instantly
-- 🎥 **Trending Content** – View what's trending today or this week
-- 🏆 **Top Rated** – Explore the highest-rated titles
-- 🆕 **In Theatres & Upcoming** – Stay up-to-date with what's new
-- 📺 **TV Show Categories** – Discover what's popular in TV shows
+- 🔍 **Search Functionality** – Search for movies and TV shows instantly  
+- 🎥 **Trending Content** – View what's trending today or this week  
+- 🏆 **Top Rated** – Explore the highest-rated titles  
+- 🆕 **In Theatres & Upcoming** – Stay up-to-date with what's new  
+- 📺 **TV Show Categories** – Discover what's popular in TV shows  
 - 📱 **Responsive Design** – Mobile-friendly layout with Tailwind CSS
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Area         | Technology            |
-|--------------|------------------------|
-| Frontend     | Next.js               |
-| Styling      | Tailwind CSS          |
+| Area         | Technology                  |
+|--------------|------------------------------|
+| Frontend     | Next.js                     |
+| Styling      | Tailwind CSS                |
 | API          | TMDb (The Movie Database) API |
-| Hosting      | Vercel                |
+| Hosting      | Vercel                      |
+
+---
+
+## 🌐 API Configuration
+
+| Key         | Value |
+|-------------|-------|
+| **Base URL**    | `https://api.themoviedb.org/3` |
+| **Image URL**   | `https://image.tmdb.org/t/p/original` |
+
+---
+
+## 🔗 API Routes Used
+
+Below are the TMDb API routes used in this project:
+
+| API Route | Description |
+|-----------|-------------|
+| `/trending/{media_type}/{time_window}` | Trending movies or TV shows for a given day or week |
+| `/movie/popular` | Popular movies |
+| `/movie/top_rated` | Top rated movies |
+| `/movie/upcoming` | Upcoming movies |
+| `/tv/popular` | Popular TV shows |
+| `/tv/top_rated` | Top rated TV shows |
+| `/tv/on_the_air` | Currently airing TV shows |
+| `/search/multi?query={query}` | Search for movies, TV shows, and people |
+| `/movie/{movie_id}` | Movie details |
+| `/tv/{tv_id}` | TV show details |
+| `/movie/{movie_id}/videos` | Videos (trailers, teasers) for a movie |
+| `/tv/{tv_id}/videos` | Videos for a TV show |
+| `/movie/{movie_id}/credits` | Cast and crew for a movie |
+| `/tv/{tv_id}/credits` | Cast and crew for a TV show |
+| `/movie/{movie_id}/similar` | Similar movies |
+| `/tv/{tv_id}/similar` | Similar TV shows |
+| `/genre/movie/list` | Movie genres |
+| `/genre/tv/list` | TV genres |
+
+> All routes require the `api_key` parameter.
 
 ---
 
@@ -90,8 +128,8 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ## 🙌 Acknowledgments
 
-- [TMDb API](https://www.themoviedb.org/) for movie data
-- [Next.js](https://nextjs.org/) for the frontend framework
+- [TMDb API](https://www.themoviedb.org/) for movie data  
+- [Next.js](https://nextjs.org/) for the frontend framework  
 - [Tailwind CSS](https://tailwindcss.com/) for styling
 
 ---
@@ -103,4 +141,4 @@ GitHub: [@Prabesh001](https://github.com/Prabesh001)
 
 ---
 
-> Built with for the purpose of browsing the movie and tv shows while learning the use of custom hook.
+> Built for exploring movies and TV shows while learning to use custom hooks.

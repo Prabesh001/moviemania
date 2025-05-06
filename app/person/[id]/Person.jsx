@@ -227,7 +227,7 @@ const CreditGrid = ({
 }) => {
   return (
     <section className="relative">
-      <div className="absolute flex overflow-hidden rounded-2xl right-0 -top-7 sm:-top-5 sm:right-4 p-[2px] bg-gray-200">
+      <div className="absolute flex overflow-hidden rounded-4xl right-0 -top-7 sm:-top-5 sm:right-4 border-2 border-[#0003198c]">
         <Toggle category={category} setCategory={setCategory} sl={sl} sr={sr} />
       </div>
       <h1 className="font-bold text-2xl">{title}</h1>

@@ -19,7 +19,7 @@ const Video = ({ url, name }) => {
   };
 
   return (
-    <div className="w-60 snap-start sm:w-80 h-full group">
+    <div className="w-60 snap-center sm:w-80 h-full group">
       <div
         className="w-60 sm:w-80 h-full aspect-video relative cursor-pointer rounded-lg overflow-hidden"
         onClick={handlePlayClick}
@@ -33,7 +33,7 @@ const Video = ({ url, name }) => {
         />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
           <div className="w-16 h-16 bg-white/2 border-gray-700 border-1 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-red-600 group-hover:border-red-600 transition-all duration-300">
-            <PlayButton/>
+            <PlayButton />
           </div>
         </div>
       </div>
