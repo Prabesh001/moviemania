@@ -101,10 +101,20 @@ To run this project locally:
 
 ---
 
-## 📸 Screenshots
 
-### 🏠 Homepage
-![Homepage](https://i.ibb.co/Jj7HWWDm/moviemania-opal-vercel-app.png)
+## 📂 Application Routes `Pages`
+
+These are the main routes used in the application:
+
+| Route              | Description                            |
+|--------------------|----------------------------------------|
+| `/`                | Home – Shows trending movies & TV shows |
+| `/explore/movies`  | All Movies                             |
+| `/explore/tv`      | All TV Shows                           |
+| `/movie/[id]`      | Movie Detail Page                      |
+| `/tv/[id]`         | TV Show Detail Page                    |
+| `/search/[name]`   | Search Page                            |
+| `/person/[id]`     | Person Detail Page                     |
 
 ---
 
@@ -120,6 +130,29 @@ utils/          → API configs and helper functions
 
 ---
 
+## 📸 Screenshots
+
+### 🏠 Homepage
+![Homepage](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/landing-page.png?raw=true)
+
+### 🍿 Movie Detail Page
+![Movie Detail Page](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/movie-detail-page.png?raw=true)
+
+### 📺 Series Detail Page
+![Series Detail Page](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/series-detail-page.png?raw=true)
+
+### 🗺️ Explore Page
+![Explore Page](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/movie-page.png?raw=true)
+
+### 🙎 Person Detail Page
+![Person Detail Page](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/person-detail-page.png?raw=true)
+
+### 🔍 Search Page
+![Search Page](https://github.com/Prabesh001/moviemania/blob/master/public/screenshots/search-result-page.png?raw=true)
+
+---
+
+
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
@@ -128,9 +161,9 @@ This project is open-source and available under the [MIT License](LICENSE).
 
 ## 🙌 Acknowledgments
 
-- [TMDb API](https://www.themoviedb.org/) for movie data  
 - [Next.js](https://nextjs.org/) for the frontend framework  
 - [Tailwind CSS](https://tailwindcss.com/) for styling
+- [TMDb API](https://www.themoviedb.org/) for movie data  
 
 ---
 
